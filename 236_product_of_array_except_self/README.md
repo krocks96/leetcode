@@ -40,6 +40,11 @@ result[i] = left[i] * right[n-1-i]
 ## 感想
 
 考え方通りの計算でAccepted
-Runtime 10ms/ Memory 3.32MB
+Runtime 10ms/ Memory 3.3MB
 
-Memoryが`Beats 8.50%of users with Rust`なのでメモリ効率が良い方法がありそう。
+Memoryが`Beats 8.50%of users with Rust`なのでメモリ効率が良い方法がありそうだったので修正を実施
+
+
+当初はleftとrightとanswerと3つのベクタを生成していたが、answerだけに変更して逐次計算をするように
+
+Runtime 6ms/ Memory 3.2MB

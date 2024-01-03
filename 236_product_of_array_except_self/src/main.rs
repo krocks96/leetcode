@@ -3,22 +3,16 @@ struct Solution;
 impl Solution {
     pub fn product_except_self(nums: Vec<i32>) -> Vec<i32> {
         let nums_len = nums.len();
-        let mut left: Vec<i32> = vec![0; nums_len];
-        let mut right: Vec<i32> = vec![0; nums_len];
-        // 左右から計算
-        for i in 0..nums_len {
-            if i == 0 {
-                left[i] = 1;
-                right[i] = 1;
-                continue;
-            }
-            left[i] = left[i-1]*nums[i-1];
-            right[i] = right[i-1]*nums[nums_len-i];
+        let mut answer: Vec<i32> = vec![1; nums_len];
+        // 左側の計算
+        for i in 1..nums_len {
+            answer[i] = answer[i - 1] * nums[i - 1];
         }
         // 答えの計算
-        let mut answer: Vec<i32> = vec![0; nums_len];
-        for i in 0..nums_len {
-            answer[i] = left[i] * right[nums_len-1-i];
+        let mut right = 1;
+        for i in (0..nums_len).rev() {
+            answer[i] *= right;
+            right *= nums[i];
         }
         return answer;
     }
