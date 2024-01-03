@@ -2,7 +2,7 @@
 
 ## 難易度
 
-Normal
+Medium
 
 ## 問題内容
 
