@@ -1,25 +1,25 @@
+use std::collections::HashSet;
 struct Solution;
 
 impl Solution {
     pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
-        // イミュータブルなためclone
-        let mut sorted_nums = nums.clone();
-        sorted_nums.sort();
+        // ハッシュセットに追加
+        let num_set: HashSet<_> = nums.iter().cloned().collect();
         // 連続回数のチェック
         let mut max_seq = 0;
-        let mut current_seq = 1;
-        if sorted_nums.len() == 1 { return 1 }
-        for i in 1..sorted_nums.len(){
-            if sorted_nums[i] == sorted_nums[i-1] + 1 {
-                current_seq += 1;
-            } else if sorted_nums[i] > sorted_nums[i-1] + 1 {
-                current_seq = 1;
-            }
-            if max_seq < current_seq {
-                max_seq = current_seq;
+        for &num in &num_set {
+            if !num_set.contains(&(num-1)) {
+                let mut current_num = num;
+                let mut current_seq = 1;
+                // 連続する数を探す
+                while num_set.contains(&(current_num+1)) {
+                    current_num += 1;
+                    current_seq += 1;
+                }
+                max_seq = max_seq.max(current_seq);
             }
         }
-       return max_seq;
+        return max_seq;
     }
 }
 
