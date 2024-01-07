@@ -2,17 +2,12 @@ struct Solution;
 
 impl Solution {
     pub fn is_palindrome(s: String) -> bool {
-        let lower_alphanumeric: Vec<char> = s.chars()
-            .filter(|c| c.is_alphanumeric())
-            .map(|c| c.to_lowercase().next().unwrap())
+        let filtered_chars: Vec<char> = s.chars()
+            .filter(|c| c.is_ascii_alphanumeric())
+            .map(|c| c.to_ascii_lowercase())
             .collect();
-        let len = lower_alphanumeric.len();
-        for i in 0..len.div_ceil(2){
-            if lower_alphanumeric[i] != lower_alphanumeric[len-1-i] {
-                return false;
-            }
-        }
-        true
+
+        filtered_chars.iter().eq(filtered_chars.iter().rev())
     }
 }
 
